@@ -7,45 +7,31 @@ namespace E_shopAPI.Controllers;
 [Route("[controller]")]
 public class ProductController : ControllerBase
 {
-    private List<Product> _products = new List<Product>
-    {
-        new Product
-        {
-            Id = 1,
-            Name = "GUNNAR Gaming Collection RPG designed by Razer, onyx/yellow",
-            Price = 1499,
-            ImgUri = new Uri("https://cdn.alza.cz/ImgW.ashx?fd=f16&cd=JD610m3a")
-        },
-        new Product
-        {
-            Id = 2,
-            Name = "ASUS ROG STRIX FLARE II ANIMATE (PBT/NXRD) - US",
-            Price = 4999,
-            ImgUri = new Uri("https://cdn.alza.cz/ImgW.ashx?fd=f16&cd=NA706q4g"),
-            Description = "too much for a keyboard",
-        },
-    };
+    private readonly DataContext _dataContext;
 
-    //TODO add logic
-    [HttpGet]
-    public async Task<ActionResult<List<Product>>> Get()
+    public ProductController(DataContext dataContext)
     {
-        return Ok(_products);
+        _dataContext = dataContext;
     }
 
-//TODO v2 with versoning
+    [HttpGet]
+    public async Task<ActionResult<List<Product>>> GetProducts()
+    {
+        return Ok(await _dataContext.Products.ToListAsync());
+    }
+
+//TODO v2 with versioning
 //     [HttpGet]
 //     public async Task<ActionResult<List<Product>>> Get()
 //     {
 //     }
 
-    //TODO add logic
     [HttpGet("{id:int}")]
-    public async Task<ActionResult<Product>> Get(int id)
+    public async Task<ActionResult<Product>> GetProductById(int id)
     {
         try
         {
-            Product product = _products.Find(product1 => product1.Id == id) ?? throw new InvalidOperationException();
+            Product product = await _dataContext.Products.FindAsync(id) ?? throw new Exception();
             return Ok(product);
         }
         catch (Exception)
@@ -54,16 +40,17 @@ public class ProductController : ControllerBase
         }
     }
 
-    //TODO add logic
+    //TODO exceptions
     [HttpPut("{id:int}/")]
-    public async Task<ActionResult<Product>> UpdateDescription(int id, string description)
+    public async Task<ActionResult<Product>> UpdateDescriptionOfProduct(int id, string description)
     {
         try
         {
-            Product product = _products.Find(product1 => product1.Id == id) ?? throw new InvalidOperationException();
+            Product product = await _dataContext.Products.FindAsync(id) ?? throw new InvalidOperationException();
             product.Description = description;
+            await _dataContext.SaveChangesAsync();
 
-            return Ok(_products);
+            return Ok(product);
         }
         catch (Exception)
         {
