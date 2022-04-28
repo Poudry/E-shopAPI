@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using E_shopAPI.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace E_shopAPI.Controllers;
 
@@ -60,10 +61,9 @@ public class ProductController : ControllerBase
         try
         {
             Product product = _products.Find(product1 => product1.Id == id) ?? throw new InvalidOperationException();
-            product.Description = description; 
-            
+            product.Description = description;
+
             return Ok(_products);
-            
         }
         catch (Exception)
         {
