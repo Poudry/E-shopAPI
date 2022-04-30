@@ -14,6 +14,10 @@ public class ProductController : ControllerBase
         _dataContext = dataContext;
     }
 
+    /// <summary>
+    /// Get all products.
+    /// </summary>
+    [ApiVersion("1.0")]
     [HttpGet]
     public async Task<ActionResult<List<Product>>> GetProducts()
     {
@@ -26,6 +30,9 @@ public class ProductController : ControllerBase
 //     {
 //     }
 
+    /// <summary>
+    /// Get product by ID.
+    /// </summary>
     [HttpGet("{id:int}")]
     public async Task<ActionResult<Product>> GetProductById(int id)
     {
@@ -41,6 +48,9 @@ public class ProductController : ControllerBase
     }
 
     //TODO exceptions
+    /// <summary>
+    /// Update product's description.
+    /// </summary>
     [HttpPut("{id:int}/")]
     public async Task<ActionResult<Product>> UpdateDescriptionOfProduct(int id, string description)
     {
