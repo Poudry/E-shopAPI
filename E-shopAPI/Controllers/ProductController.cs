@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace E_shopAPI.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[ApiVersion("1.0")]
+[ApiVersion("2.0")]
+[Route("api/v{version:apiVersion}/[controller]")]
 public class ProductController : ControllerBase
 {
     private readonly DataContext _dataContext;
@@ -17,18 +19,19 @@ public class ProductController : ControllerBase
     /// <summary>
     /// Get all products.
     /// </summary>
-    [ApiVersion("1.0")]
+    [MapToApiVersion("1.0")]
     [HttpGet]
     public async Task<ActionResult<List<Product>>> GetProducts()
     {
         return Ok(await _dataContext.Products.ToListAsync());
     }
 
-//TODO v2 with versioning
-//     [HttpGet]
-//     public async Task<ActionResult<List<Product>>> Get()
-//     {
-//     }
+    [MapToApiVersion("2.0")]
+    [HttpGet]
+    public async Task<ActionResult<List<Product>>> GetProductsV2()
+    {
+        return BadRequest(await _dataContext.Products.ToListAsync());
+    }
 
     /// <summary>
     /// Get product by ID.
