@@ -35,7 +35,7 @@ public class ProductController : ControllerBase
     {
         return Ok(await _dataContext.Products
             .OrderBy(b => b.Id)
-            .Skip(pageSize * (page-1))
+            .Skip(pageSize * (page - 1))
             .Take(pageSize)
             .ToListAsync());
     }
@@ -57,16 +57,15 @@ public class ProductController : ControllerBase
         }
     }
 
-    //TODO exceptions
     /// <summary>
     /// Update product's description.
     /// </summary>
     [HttpPut("{id:int}/")]
-    public async Task<ActionResult<Product>> UpdateDescriptionOfProduct(int id, string description)
+    public async Task<ActionResult<Product>> UpdateDescriptionOfProduct(int id, string? description)
     {
         try
         {
-            Product product = await _dataContext.Products.FindAsync(id) ?? throw new InvalidOperationException();
+            Product product = await _dataContext.Products.FindAsync(id) ?? throw new Exception();
             product.Description = description;
             await _dataContext.SaveChangesAsync();
 
