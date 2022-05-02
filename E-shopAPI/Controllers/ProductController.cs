@@ -26,11 +26,18 @@ public class ProductController : ControllerBase
         return Ok(await _dataContext.Products.ToListAsync());
     }
 
+    /// <summary>
+    /// Get products with paginating.
+    /// </summary>
     [MapToApiVersion("2.0")]
     [HttpGet]
-    public async Task<ActionResult<List<Product>>> GetProductsV2()
+    public async Task<ActionResult<List<Product>>> GetProductsV2(int pageSize = 10, int page = 1)
     {
-        return BadRequest(await _dataContext.Products.ToListAsync());
+        return Ok(await _dataContext.Products
+            .OrderBy(b => b.Id)
+            .Skip(pageSize * (page-1))
+            .Take(pageSize)
+            .ToListAsync());
     }
 
     /// <summary>
