@@ -1,6 +1,7 @@
 global using E_shopAPI.Data;
 global using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using Application;
 using E_shopAPI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -35,6 +36,8 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
+builder.Services.AddApplication();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -46,7 +49,6 @@ if (app.Environment.IsDevelopment())
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
         options.SwaggerEndpoint("/swagger/v2/swagger.json", "v2");
     });
-
 }
 
 app.UseHttpsRedirection();

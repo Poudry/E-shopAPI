@@ -1,4 +1,6 @@
-﻿using E_shopAPI.Models;
+﻿using Application.Companies.Commands.CreateCompany;
+using E_shopAPI.Models;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_shopAPI.Controllers;
@@ -10,10 +12,12 @@ namespace E_shopAPI.Controllers;
 public class ProductController : ControllerBase
 {
     private readonly DataContext _dataContext;
+    private readonly ISender _sender;
 
-    public ProductController(DataContext dataContext)
+    public ProductController(DataContext dataContext, ISender sender)
     {
         _dataContext = dataContext;
+        _sender = sender;
     }
 
     /// <summary>
@@ -44,17 +48,19 @@ public class ProductController : ControllerBase
     /// Get product by ID.
     /// </summary>
     [HttpGet("{id:int}")]
-    public async Task<ActionResult<Product>> GetProductById(int id)
+    public async Task<int> GetProductById(int id)
     {
-        try
-        {
-            Product product = await _dataContext.Products.FindAsync(id) ?? throw new Exception();
-            return Ok(product);
-        }
-        catch (Exception)
-        {
-            return BadRequest("Product not found.");
-        }
+        return await _sender.Send(new CreateCompanyCommand());
+
+        // try
+        // {
+        //     Product product = await _dataContext.Products.FindAsync(id) ?? throw new Exception();
+        //     return Ok(product);
+        // }
+        // catch (Exception)
+        // {
+        //     return BadRequest("Product not found.");
+        // }
     }
 
     /// <summary>
