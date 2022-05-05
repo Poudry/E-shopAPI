@@ -1,8 +1,9 @@
-global using E_shopAPI.Data;
 global using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using Application;
 using E_shopAPI;
+using Infrastructure;
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -37,6 +38,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.Services.AddApplication();
+builder.Services.AddInfrastructure();
 
 var app = builder.Build();
 
