@@ -1,7 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces.Repositories;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Products.Queries.GetProducts;
 
@@ -20,6 +19,6 @@ public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, List<Pr
 
     public async Task<List<Product>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
     {
-        return await _productRepository.FindAll().ToListAsync(cancellationToken: cancellationToken);
+        return await _productRepository.GetProducts(cancellationToken);
     }
 }

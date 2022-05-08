@@ -16,6 +16,11 @@ public class ProductRepository : RepositoryBase<Product>, IProductRepository
         _dataContext = dataContext;
     }
 
+    public async Task<List<Product>> GetProducts(CancellationToken cancellationToken)
+    {
+        return await FindAll().ToListAsync(cancellationToken);
+    }
+
     public async Task<Product> FindByIdAsync(int id, CancellationToken cancellationToken)
     {
         var product = await _dataContext.Products.FindAsync(id);

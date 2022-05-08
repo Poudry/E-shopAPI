@@ -1,0 +1,9 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9d0580d4_002D8b06_002D4b9e_002Db774_002D0b88717e41ff/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetProductsQueryTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::78B6E082-15B1-4825-981E-D8F905C480D1::net6.0::Application.UnitTests.Products.Queries.GetProductsQuery.GetProductsQueryTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::78B6E082-15B1-4825-981E-D8F905C480D1::net6.0::Application.UnitTests.Products.Queries.GetProductsQuery.GetProductsQueryV2Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::78B6E082-15B1-4825-981E-D8F905C480D1::net6.0::Application.UnitTests.Products.Queries.GetProductById.GetProductByIdQueryTest.ShouldCallRepositoryAndReturnProduct&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::78B6E082-15B1-4825-981E-D8F905C480D1::net6.0::Application.UnitTests.Products.Commands.UpdateProductDescription.UpdateProductDescriptionCommandTest.ShouldCallRepositoryAndUpdateProduct&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

@@ -19,9 +19,9 @@ public class GetProductsQueryV2Handler : IRequestHandler<GetProductsQueryV2, Lis
         _productRepository = productRepository;
     }
 
-    public async Task<List<Product>> Handle(GetProductsQueryV2 request, CancellationToken cancellationToken)
+    public async Task<List<Product>> Handle(GetProductsQueryV2 query, CancellationToken cancellationToken)
     {
-        return await _productRepository.GetProductsWithPaginationAsync(request.PageSize, request.PageNumber,
+        return await _productRepository.GetProductsWithPaginationAsync(query.PageSize, query.PageNumber,
             cancellationToken);
     }
 }
