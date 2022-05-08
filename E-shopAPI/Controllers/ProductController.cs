@@ -28,19 +28,15 @@ public class ProductController : ControllerBase
         return await _sender.Send(new GetProductsQuery());
     }
 
-    // /// <summary>
-    // /// Get products with paginating.
-    // /// </summary>
-    // [MapToApiVersion("2.0")]
-    // [HttpGet]
-    // public async Task<ActionResult<List<Product>>> GetProductsV2(int pageSize = 10, int page = 1)
-    // {
-    //     return Ok(await _dataContext.Products
-    //         .OrderBy(b => b.Id)
-    //         .Skip(pageSize * (page - 1))
-    //         .Take(pageSize)
-    //         .ToListAsync());
-    // }
+    /// <summary>
+    /// Get products with paginating.
+    /// </summary>
+    [MapToApiVersion("2.0")]
+    [HttpGet]
+    public async Task<ActionResult<List<Product>>> GetProductsV2([FromQuery] GetProductsQueryV2 query)
+    {
+        return await _sender.Send(query);
+    }
 
     // /// <summary>
     // /// Get product by ID.
