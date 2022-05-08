@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace E_shopAPI.Migrations
+namespace Infrastructure.Migrations
 {
     public partial class CreateInitial : Migration
     {
