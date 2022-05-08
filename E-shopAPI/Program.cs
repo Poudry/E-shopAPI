@@ -48,6 +48,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
+        //Za toto se omlouvám, mohlo by to být určitě hezčí a automatické.
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
         options.SwaggerEndpoint("/swagger/v2/swagger.json", "v2");
     });

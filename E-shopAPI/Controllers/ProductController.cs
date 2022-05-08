@@ -1,5 +1,4 @@
 ﻿using Application.Products.Commands.UpdateProductDescription;
-using Application.Products.Queries;
 using Application.Products.Queries.GetProductById;
 using Application.Products.Queries.GetProducts;
 using MediatR;
