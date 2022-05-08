@@ -11,11 +11,11 @@ public class GetProductsQueryV2 : IRequest<List<Product>>
     public int PageSize { get; set; } = 10;
 }
 
-public class GetProductsQueryHandlerV2 : IRequestHandler<GetProductsQueryV2, List<Product>>
+public class GetProductsQueryV2Handler : IRequestHandler<GetProductsQueryV2, List<Product>>
 {
     private readonly IProductRepository _productRepository;
 
-    public GetProductsQueryHandlerV2(IProductRepository productRepository)
+    public GetProductsQueryV2Handler(IProductRepository productRepository)
     {
         _productRepository = productRepository;
     }
