@@ -14,9 +14,9 @@ public class ProductRepository : RepositoryBase<Product>, IProductRepository
         _dataContext = dataContext;
     }
 
-    public async Task<Product?> FindByIdAsync(int id)
+    public async Task<Product?> FindByIdAsync(int id, CancellationToken cancellationToken)
     {
-        return await _dataContext.Products.FindAsync(id);
+        return await _dataContext.Products.FindAsync(id, cancellationToken);
     }
 
     public async Task<List<Product>> GetCompanyWithPaginationAsync(int pageSize, int pageNumber, CancellationToken cancellationToken)

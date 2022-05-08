@@ -38,24 +38,14 @@ public class ProductController : ControllerBase
         return await _sender.Send(query);
     }
 
-    // /// <summary>
-    // /// Get product by ID.
-    // /// </summary>
-    // [HttpGet("{id:int}")]
-    // public async Task<int> GetProductById(int id)
-    // {
-    //     return await _sender.Send(new CreateCompanyCommand());
-    //
-    //     // try
-    //     // {
-    //     //     Product product = await _dataContext.Products.FindAsync(id) ?? throw new Exception();
-    //     //     return Ok(product);
-    //     // }
-    //     // catch (Exception)
-    //     // {
-    //     //     return BadRequest("Product not found.");
-    //     // }
-    // }
+    /// <summary>
+    /// Get product by ID.
+    /// </summary>
+    [HttpGet("{id:int}")]
+    public async Task<Product?> GetProductById(int id)
+    {
+        return await _sender.Send(new GetProductsByIdQuery { ProductId = id });
+    }
 
     // /// <summary>
     // /// Update product's description.
