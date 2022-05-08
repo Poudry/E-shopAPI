@@ -2,14 +2,14 @@
 using Domain.Interfaces.Repositories;
 using MediatR;
 
-namespace Application.Products.Queries;
+namespace Application.Products.Queries.GetProductById;
 
-public class GetProductsByIdQuery : IRequest<Product?>
+public class GetProductsByIdQuery : IRequest<Product>
 {
     public int ProductId { get; set; }
 }
 
-public class GetProductsByIdQueryHandler : IRequestHandler<GetProductsByIdQuery, Product?>
+public class GetProductsByIdQueryHandler : IRequestHandler<GetProductsByIdQuery, Product>
 {
     private readonly IProductRepository _productRepository;
 
@@ -18,7 +18,7 @@ public class GetProductsByIdQueryHandler : IRequestHandler<GetProductsByIdQuery,
         _productRepository = productRepository;
     }
 
-    public async Task<Product?> Handle(GetProductsByIdQuery request, CancellationToken cancellationToken)
+    public async Task<Product> Handle(GetProductsByIdQuery request, CancellationToken cancellationToken)
     {
         return await _productRepository.FindByIdAsync(request.ProductId, cancellationToken);
     }

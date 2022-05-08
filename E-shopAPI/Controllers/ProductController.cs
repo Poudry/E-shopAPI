@@ -1,4 +1,7 @@
-﻿using Application.Products.Queries;
+﻿using Application.Products.Commands.UpdateProductDescription;
+using Application.Products.Queries;
+using Application.Products.Queries.GetProductById;
+using Application.Products.Queries.GetProducts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Product = Domain.Entities.Product;
@@ -42,28 +45,19 @@ public class ProductController : ControllerBase
     /// Get product by ID.
     /// </summary>
     [HttpGet("{id:int}")]
-    public async Task<Product?> GetProductById(int id)
+    public async Task<Product> GetProductById(int id)
     {
         return await _sender.Send(new GetProductsByIdQuery { ProductId = id });
     }
 
-    // /// <summary>
-    // /// Update product's description.
-    // /// </summary>
-    // [HttpPut("{id:int}/")]
-    // public async Task<ActionResult<Product>> UpdateDescriptionOfProduct(int id, string? description)
-    // {
-    //     try
-    //     {
-    //         Product product = await _dataContext.Products.FindAsync(id) ?? throw new Exception();
-    //         product.Description = description;
-    //         await _dataContext.SaveChangesAsync();
-    //
-    //         return Ok(product);
-    //     }
-    //     catch (Exception)
-    //     {
-    //         return BadRequest("Product not found.");
-    //     }
-    // }
+    /// <summary>
+    /// Update product's description.
+    /// </summary>
+    [HttpPut("{id:int}/")]
+    public async Task<ActionResult> UpdateDescriptionOfProduct(int id, string? description)
+    {
+        await _sender.Send(new UpdateProductDescriptionCommand { ProductId = id, Description = description });
+
+        return NoContent();
+    }
 }

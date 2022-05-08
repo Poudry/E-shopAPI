@@ -1,6 +1,8 @@
-﻿using Domain.Entities;
+﻿using Application.Common.Exceptions;
+using Domain.Entities;
 using Domain.Interfaces.Repositories;
 using Infrastructure.Data;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
@@ -14,12 +16,20 @@ public class ProductRepository : RepositoryBase<Product>, IProductRepository
         _dataContext = dataContext;
     }
 
-    public async Task<Product?> FindByIdAsync(int id, CancellationToken cancellationToken)
+    public async Task<Product> FindByIdAsync(int id, CancellationToken cancellationToken)
     {
-        return await _dataContext.Products.FindAsync(id, cancellationToken);
+        var product = await _dataContext.Products.FindAsync(id);
+
+        if (product is null)
+        {
+            throw new NotFoundException(nameof(Product), id);
+        }
+
+        return product;
     }
 
-    public async Task<List<Product>> GetCompanyWithPaginationAsync(int pageSize, int pageNumber, CancellationToken cancellationToken)
+    public async Task<List<Product>> GetProductsWithPaginationAsync(int pageSize, int pageNumber,
+        CancellationToken cancellationToken)
     {
         return await _dataContext.Products
             .OrderBy(b => b.Id)
@@ -28,24 +38,19 @@ public class ProductRepository : RepositoryBase<Product>, IProductRepository
             .ToListAsync(cancellationToken: cancellationToken);
     }
 
-    public async Task<Product?> UpdateCompany(Product request)
+    public async Task<Unit> UpdateProductDescriptionAsync(int id, string? description,
+        CancellationToken cancellationToken)
     {
-        var company = await _dataContext.Products.FindAsync(request.Id);
-        if (company == null)
-        {
-            return null;
-        }
+        var product = await FindByIdAsync(id, cancellationToken);
 
-        company.Name = request.Name;
-        company.ImgUri = request.ImgUri;
-        company.Price = request.Price;
-        await _dataContext.SaveChangesAsync();
+        product.Description = description;
+        await _dataContext.SaveChangesAsync(cancellationToken);
 
-        return company;
+        return Unit.Value;
     }
 
-    public  void Save()
+    public void Save()
     {
-         _dataContext.SaveChanges();
+        _dataContext.SaveChanges();
     }
 }

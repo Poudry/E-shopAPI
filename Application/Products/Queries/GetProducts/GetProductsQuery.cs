@@ -3,7 +3,7 @@ using Domain.Interfaces.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Products.Queries;
+namespace Application.Products.Queries.GetProducts;
 
 public class GetProductsQuery : IRequest<List<Product>>
 {

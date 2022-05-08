@@ -1,9 +1,8 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces.Repositories;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
-namespace Application.Products.Queries;
+namespace Application.Products.Queries.GetProducts;
 
 public class GetProductsQueryV2 : IRequest<List<Product>>
 {
@@ -22,7 +21,7 @@ public class GetProductsQueryV2Handler : IRequestHandler<GetProductsQueryV2, Lis
 
     public async Task<List<Product>> Handle(GetProductsQueryV2 request, CancellationToken cancellationToken)
     {
-        return await _productRepository.GetCompanyWithPaginationAsync(request.PageSize, request.PageNumber,
+        return await _productRepository.GetProductsWithPaginationAsync(request.PageSize, request.PageNumber,
             cancellationToken);
     }
 }
