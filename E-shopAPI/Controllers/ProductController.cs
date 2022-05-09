@@ -43,10 +43,10 @@ public class ProductController : ControllerBase
     /// <summary>
     /// Get product by ID.
     /// </summary>
-    [HttpGet("{id:int}")]
-    public async Task<Product> GetProductById(int id)
+    [HttpGet("{ProductId:int}")]
+    public async Task<Product> GetProductById([FromRoute] GetProductsByIdQuery query)
     {
-        return await _sender.Send(new GetProductsByIdQuery { ProductId = id });
+        return await _sender.Send(query);
     }
 
     /// <summary>
